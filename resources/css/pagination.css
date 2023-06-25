@@ -1,0 +1,57 @@
+.react-paginate {
+    display: flex;
+    justify-content: flex-end; /* Center the pagination on the page */
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+.react-paginate ul {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.react-paginate li {
+    margin-right: 0.5rem;
+}
+
+.react-paginate li a {
+    color: #444;
+    border: 1px solid #ccc;
+    padding: 0.5rem;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.2s ease; /* Add a smooth transition effect */
+}
+
+.react-paginate li.active a {
+    outline: 2px solid #0075ff; /* Add an outline of 2px and use the primary color */
+}
+
+.react-paginate li.disabled a {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Change the border and font size of the previous and next buttons */
+.react-paginate li > a:hover,
+.react-paginate li > a:focus {
+    border-color: #0075ff;
+    outline: none;
+}
+
+.react-paginate a[disabled] {
+    color: #999;
+    pointer-events: none;
+}
+
+.react-paginate li:first-of-type a {
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+
+.react-paginate li:last-of-type a {
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+}
