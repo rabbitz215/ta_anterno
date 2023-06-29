@@ -277,7 +277,10 @@ class ShipmentController extends Controller
             $customer = Customer::where('no_telp', $no_telp)->firstOrFail();
             $shipments = $customer->shipments()->with(['destinations' => function ($query) {
                 $query->where('type', '<>', 'Pickup');
-            }])->whereDate('tanggal_kiriman', '=', Carbon::today())->get();
+            }])
+                ->whereDate('tanggal_kiriman', '=', Carbon::today())
+                ->has('destinations', '>', 1)
+                ->get();
             return Inertia::render('CekPaket', [
                 'customer' => $customer,
                 'shipments' => $shipments
@@ -295,7 +298,7 @@ class ShipmentController extends Controller
             $customer = Customer::where('no_telp', $no_telp)->firstOrFail();
             $shipments = $customer->shipments()->with(['destinations' => function ($query) {
                 $query->where('type', '<>', 'Pickup');
-            }])->orderBy('tanggal_kiriman', 'desc')->get()->groupBy('tanggal_kiriman');
+            }])->orderBy('tanggal_kiriman', 'desc')->has('destinations', '>', 1)->get()->groupBy('tanggal_kiriman');
 
             return Inertia::render('CekPaketHistory', [
                 'customer' => $customer,

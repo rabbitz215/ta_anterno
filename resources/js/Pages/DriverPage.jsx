@@ -12,6 +12,7 @@ import moment from "moment/moment";
 const DriverPage = (props) => {
     const [data, setData] = useState(props.kiriman);
     const [selectedDate, setSelectedDate] = useState(new Date());
+    const [isLoading, setIsLoading] = useState(true);
 
     const loadKiriman = (date) => {
         const formattedDate = moment(date).format("YYYY-MM-DD");
@@ -22,6 +23,9 @@ const DriverPage = (props) => {
             })
             .catch(function (error) {
                 console.log(error.message);
+            })
+            .finally(() => {
+                setIsLoading(false);
             });
     };
 
@@ -72,7 +76,15 @@ const DriverPage = (props) => {
                     <div className="px-6 my-6 text-lg font-bold">
                         Kiriman tanggal {formattedDate}
                     </div>
-                    {data.length > 0 ? (
+                    {isLoading ? (
+                        <div className="m-6 bg-white my-2 overflow-hidden shadow-sm sm:rounded-lg">
+                            <div className="p-4 md:p-0 my-2 h-auto">
+                                <div className="text-lg p-6 font-bold">
+                                    Loading....
+                                </div>
+                            </div>
+                        </div>
+                    ) : data.length > 0 ? (
                         data.map((item) => (
                             <KirimanDriver
                                 onSave={() => loadKiriman(selectedDate)}

@@ -45,7 +45,10 @@ class DriverController extends Controller
     {
         $date = $request->input('date');
         $formattedDate = Carbon::parse($date)->format('Y-m-d');
-        $data = Destination::whereDate('tanggal_kiriman', '=', $formattedDate)->orderBy('urutan', 'asc')->get();
+        $data = Destination::whereDate('tanggal_kiriman', '=', $formattedDate)
+            ->whereHas('shipment', function ($query) {
+                $query->has('destinations', '>', 1);
+            })->orderBy('urutan', 'asc')->get();
 
         return response()->json($data, 200);
     }
