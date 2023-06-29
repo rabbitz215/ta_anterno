@@ -320,6 +320,8 @@ const FormKiriman = ({ shipments, selectedDate }) => {
                                             setName(customer.nama);
                                             setShowDropdown(false);
                                             setMobileNumber(customer.no_telp);
+                                            setAlamat(customer.address);
+                                            setLinkMap(customer.link_maps);
                                         }}
                                         className="px-4 py-2 cursor-pointer hover:bg-gray-100"
                                     >
