@@ -31,6 +31,7 @@ class ShipmentController extends Controller
             $query->where('type', '<>', 'Pickup');
         }])
             ->whereDate('tanggal_kiriman', '=', $formattedDate)
+            ->has('destinations', '>', 1)
             ->latest()
             ->get();
 

@@ -47,6 +47,8 @@ class CustomerController extends Controller
             $customer->fill([
                 'nama' => $request->nama,
                 'no_telp' => $request->no_telp,
+                'address' => $request->address,
+                'link_maps' => $request->link_maps,
                 'saldo' => 0,
             ]);
         }

@@ -25,8 +25,15 @@ class DestinationsExport implements FromView, ShouldAutoSize, WithStyles
 
     public function view(): View
     {
-        $data = Destination::whereBetween(DB::raw('DATE(created_at)'), [$this->startDate, $this->endDate])->latest()->get();
-        $pendapatan = Shipment::whereBetween(DB::raw('DATE(created_at)'), [$this->startDate, $this->endDate])->sum('total_harga');
+        $data = Destination::whereBetween(DB::raw('DATE(created_at)'), [$this->startDate, $this->endDate])
+            ->whereHas('shipment', function ($query) {
+                $query->has('destinations', '>', 1);
+            })
+            ->latest()
+            ->get();
+        $pendapatan = Shipment::whereBetween(DB::raw('DATE(created_at)'), [$this->startDate, $this->endDate])
+            ->has('destinations', '>', 1)
+            ->sum('total_harga');
 
         return view('export.anterno', [
             'destinations' => $data,

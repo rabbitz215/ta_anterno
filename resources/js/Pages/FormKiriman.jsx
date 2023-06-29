@@ -128,6 +128,8 @@ const FormKiriman = ({ shipments, selectedDate }) => {
                 .post("/customer", {
                     nama: name,
                     no_telp: mobileNumber,
+                    address: alamat,
+                    link_maps: linkMap,
                 })
                 .then(function (response) {
                     setCustomerId(response.data.id);
@@ -320,8 +322,12 @@ const FormKiriman = ({ shipments, selectedDate }) => {
                                             setName(customer.nama);
                                             setShowDropdown(false);
                                             setMobileNumber(customer.no_telp);
-                                            setAlamat(customer.address);
-                                            setLinkMap(customer.link_maps);
+                                            if (customer.address !== null) {
+                                                setAlamat(customer.address);
+                                            }
+                                            if (customer.link_maps !== null) {
+                                                setLinkMap(customer.link_maps);
+                                            }
                                         }}
                                         className="px-4 py-2 cursor-pointer hover:bg-gray-100"
                                     >
